@@ -1,0 +1,11 @@
+name: Azure Logout
+
+on:
+  workflow_call: {}
+
+jobs:
+  logout:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Logout from Azure
+        run: az logout

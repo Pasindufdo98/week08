@@ -9,13 +9,21 @@ on:
   # Manual trigger
   workflow_dispatch:
 
-  # Automatically on pushes to main branch
+  # Automatically on pushes to development branch
   push:
     branches:
-      - main
+      - development
     paths: # Only trigger if changes are in backend directories
       - 'backend/**'
       - '.github/workflows/backend_ci.yml' # Trigger if this workflow file changes
+
+    pull_request:
+      branches:
+        - development
+        - main
+      paths:
+        - 'backend/**'
+        - '.github/workflows/backend_ci.yml' # Trigger if this workflow file changes
 
 # Define global environment variables that can be used across jobs
 env:
@@ -142,6 +150,6 @@ jobs:
         docker push ${{ env.ACR_LOGIN_SERVER }}/order_service:latest
 
     # Logout from Azure for security (runs even if image push fails)
-    - name: Logout from Azure
-      run: az logout
+    - name: Call reusable Azure Logout
       if: always()
+      uses: ./.github/workflows/azure-logout.yml
