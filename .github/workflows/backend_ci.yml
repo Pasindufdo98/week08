@@ -17,13 +17,13 @@ on:
       - 'backend/**'
       - '.github/workflows/backend_ci.yml' # Trigger if this workflow file changes
 
-    pull_request:
-      branches:
-        - development
-        - main
-      paths:
-        - 'backend/**'
-        - '.github/workflows/backend_ci.yml' # Trigger if this workflow file changes
+  pull_request:
+    branches:
+      - development
+      - main
+    paths:
+      - 'backend/**'
+      - '.github/workflows/backend_ci.yml' # Trigger if this workflow file changes
 
 # Define global environment variables that can be used across jobs
 env:
@@ -151,6 +151,5 @@ jobs:
 
   logout:
     if: always()
-    runs-on: ubuntu-latest
     needs: [test_and_lint_backends, build_and_push_images]
     uses: ./.github/workflows/azure-logout.yml
