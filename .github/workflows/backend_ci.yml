@@ -155,7 +155,3 @@ jobs:
     - name: Call reusable Azure Logout
       if: always()
       uses: ./.github/workflows/azure-logout.yml
-logout:
-  if: always()
-  uses: ./.github/workflows/azure-logout.yml
-  needs: build_and_push_images
